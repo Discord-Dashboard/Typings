@@ -8,9 +8,6 @@ interface Config {
 
         session: {
             secret: string;
-            cookie: {
-                secure: boolean;
-            };
         };
 
         guild_management: {
