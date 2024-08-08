@@ -11,7 +11,9 @@ import type {
 
 abstract class BaseOptionBuilder {
     protected id!: string;
-    protected meta: { [key: string]: any } = {};
+    protected meta: { [key: string]: any } = {
+        core: {},
+    };
     protected type!: string;
 
     public setId(id: string): this {
@@ -26,7 +28,9 @@ abstract class BaseOptionBuilder {
 }
 
 export abstract class GuildOptionBuilder<T> extends BaseOptionBuilder {
-    private canAccess: GuildAccessChecker = async () => true;
+    private canAccess: GuildAccessChecker = async () => {
+        return { allowed: true };
+    };
 
     private get!: GuildGetter<T>;
     private set!: GuildSetter<T>;
@@ -62,7 +66,9 @@ export abstract class GuildOptionBuilder<T> extends BaseOptionBuilder {
 }
 
 export abstract class UserOptionBuilder<T> extends BaseOptionBuilder {
-    private canAccess: UserAccessChecker = async () => true;
+    private canAccess: UserAccessChecker = async () => {
+        return { allowed: true };
+    };
 
     private get!: UserGetter<T>;
     private set!: UserSetter<T>;

@@ -1,5 +1,14 @@
-import type { GuildFormOptionGroup, UserFormOptionGroup } from './FormGroup';
-import type { GuildFormOption, UserFormOption } from './FormOption';
+import type {
+    GuildFormOptionGroup,
+    GuildGroupAccessChecker,
+    UserFormOptionGroup,
+    UserGroupAccessChecker,
+} from './FormGroup';
+import type {
+    GuildAccessChecker,
+    GuildFormOption,
+    UserFormOption,
+} from './FormOption';
 
 abstract class BaseGroupBuilder {
     protected id!: string;
@@ -19,14 +28,24 @@ abstract class BaseGroupBuilder {
 export class GuildFormGroupBuilder extends BaseGroupBuilder {
     protected options!: GuildFormOption<any>[];
 
+    private canAccess: GuildGroupAccessChecker = async () => {
+        return { allowed: true };
+    };
+
     public setOptions(options: GuildFormOption<any>[]) {
         this.options = options;
+        return this;
+    }
+
+    public onAccessCheck(accessChecker: GuildGroupAccessChecker): this {
+        this.canAccess = accessChecker;
         return this;
     }
 
     public build(): GuildFormOptionGroup {
         return {
             id: this.id,
+            canAccess: this.canAccess,
             meta: this.meta,
             options: this.options,
         };
@@ -36,14 +55,24 @@ export class GuildFormGroupBuilder extends BaseGroupBuilder {
 export class UserFormGroupBuilder extends BaseGroupBuilder {
     protected options!: UserFormOption<any>[];
 
+    private canAccess: UserGroupAccessChecker = async () => {
+        return { allowed: true };
+    };
+
     public setOptions(options: UserFormOption<any>[]) {
         this.options = options;
+        return this;
+    }
+
+    public onAccessCheck(accessChecker: UserGroupAccessChecker): this {
+        this.canAccess = accessChecker;
         return this;
     }
 
     public build(): UserFormOptionGroup {
         return {
             id: this.id,
+            canAccess: this.canAccess,
             meta: this.meta,
             options: this.options,
         };
