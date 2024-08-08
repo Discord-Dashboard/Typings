@@ -1,0 +1,13 @@
+{
+  "name": "@discord-dashboard/typings",
+  "version": "3.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "discord-oauth2": "^2.12.1",
+    "discord.js": "^14.15.3"
+  }
+}
