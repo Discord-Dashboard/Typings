@@ -1,8 +1,21 @@
 import { PermissionsBitField } from 'discord.js';
 
+enum Environment {
+    DEVELOPMENT = 'development',
+    STAGING = 'staging',
+    PRODUCTION = 'production',
+}
+
+enum Protocol {
+    HTTP = 'http',
+    HTTPS = 'https',
+}
+
 interface Config {
+    environment: Environment;
+
     api: {
-        protocol: 'http' | 'https';
+        protocol: Protocol;
         domain: string;
         port: number;
 
@@ -25,4 +38,4 @@ interface Config {
     };
 }
 
-export { Config };
+export { Config, Environment, Protocol };

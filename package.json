@@ -8,6 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "discord-oauth2": "^2.12.1",
-    "discord.js": "^14.15.3"
+    "discord.js": "^14.15.3",
+    "typescript": "^5.5.4"
   }
 }
