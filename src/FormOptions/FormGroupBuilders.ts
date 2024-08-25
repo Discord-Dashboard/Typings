@@ -12,7 +12,9 @@ import type {
 
 abstract class BaseGroupBuilder {
     protected id!: string;
-    protected meta: { [key: string]: any } = {};
+    protected meta: { [key: string]: any } = {
+        core: {}
+    };
 
     public setId(id: string): this {
         this.id = id;
@@ -20,7 +22,26 @@ abstract class BaseGroupBuilder {
     }
 
     public setMeta(meta: { [key: string]: any }): this {
-        this.meta = meta;
+        this.meta = {
+            ...this.meta,
+            ...meta,
+        };
+        return this;
+    }
+
+    public setName(name: string): this {
+        this.meta.core = {
+            ...this.meta.core,
+            name,
+        }
+        return this;
+    }
+
+    public setDescription(description: string): this {
+        this.meta.core = {
+            ...this.meta.core,
+            description,
+        }
         return this;
     }
 }

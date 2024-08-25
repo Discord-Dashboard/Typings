@@ -22,7 +22,26 @@ abstract class BaseOptionBuilder {
     }
 
     public setMeta(meta: { [key: string]: any }): this {
-        this.meta = meta;
+        this.meta = {
+            ...this.meta,
+            ...meta,
+        };
+        return this;
+    }
+
+    public setName(name: string): this {
+        this.meta.core = {
+            ...this.meta.core,
+            name,
+        }
+        return this;
+    }
+
+    public setDescription(description: string): this {
+        this.meta.core = {
+            ...this.meta.core,
+            description,
+        }
         return this;
     }
 }
